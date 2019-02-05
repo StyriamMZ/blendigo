@@ -9,7 +9,7 @@ import math
 import hashlib
 import array
 
-from extensions_framework import util as efutil
+from ..extensions_framework import util as efutil
 
 from .. core.util import get_worldscale
 from .. export import ( indigo_log,

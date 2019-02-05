@@ -1,7 +1,7 @@
 import bpy
 from bpy.app.handlers import persistent
 from .. core.util import getInstallPath, getAddonDir
-from extensions_framework.util import find_config_value, write_config_value
+from ..extensions_framework.util import find_config_value, write_config_value
 
 from .. import export, bl_info
 from .. core.util import PlatformInformation, getInstallPath
@@ -50,32 +50,58 @@ def set_render_mode(self, context):
         self.bidir = True
         self.metro = False
         self.foreground_alpha = False
+        #!self.material_id = False
         self.gpu = False
         self.shadow = False
+        #!self.depth_pass = False
     if self.render_mode == 'bidir_mlt':
         self.bidir = True
         self.metro = True
         self.foreground_alpha = False
+        #!self.material_id = False
         self.gpu = False
         self.shadow = False
+        #!self.depth_pass = False
     if self.render_mode == 'path_cpu':
         self.bidir = False
         self.metro = False
         self.foreground_alpha = False
+        #!self.material_id = False
         self.gpu = False
         self.shadow = False
+        #!self.depth_pass = False
     if self.render_mode == 'path_gpu':
         self.bidir = False
         self.metro = False
         self.foreground_alpha = False
+        #!self.material_id = False
         self.gpu = True
         self.shadow = False
+        #!self.depth_pass = False
+    #!if self.render_mode == 'material_id':
+        #!self.bidir = False
+        #!self.metro = False
+        #!self.foreground_alpha = False
+        #!self.material_id = True
+        #!self.gpu = False
+        #!self.shadow = False
+        #!self.depth_pass = False
     if self.render_mode == 'shadow':
         self.bidir = False
         self.metro = False
         self.foreground_alpha = False
+        #!self.material_id = False
         self.gpu = False
         self.shadow = True
+        #!self.depth_pass = False
+    #!if self.render_mode == 'depth':
+        #!self.bidir = False
+        #!self.metro = False
+        #!self.foreground_alpha = False
+        #!self.material_id = False
+        #!self.gpu = False
+        #!self.shadow = False
+        #!self.depth_pass = True
 
 def set_filter_preset(self, context):
     if self.filter_preset == 'default':
@@ -167,6 +193,8 @@ properties = [
             ('bidir_mlt', 'BiDir MLT (CPU)', 'Bidirectional Path Tracing with Metropolis Light Transport on the CPU'),
             ('path_cpu', 'Path (CPU)', 'Path Tracing on the CPU'),
             ('path_gpu', 'Path (GPU)', 'GPU accelerated Path Tracing'),
+            #!('material_id', 'Material ID', 'Render materials as unique flat colours for compositing'),
+            #!('depth', 'Depth Pass', 'A greyscale image corresponding to camera depth values is generated, used for post-processing'),
             ('shadow', 'Shadow Pass', 'Render shadow pass for compositing'),
             ('custom', 'Custom', 'Choose your own settings')
         ],
@@ -189,6 +217,20 @@ properties = [
         'description': 'Enable Alpha Mask Rendering',
         'default': False,
     },
+    #!{
+    #!    'type': 'bool',
+    #!    'attr': 'depth_pass',
+    #!    'name': 'Depth Pass',
+    #!    'description': 'Enable Depth Image Rendering',
+    #!    'default': False,
+    #!},
+    #!{
+    #!    'type': 'bool',
+    #!    'attr': 'material_id',
+    #!    'name': 'Material ID',
+    #!    'description': 'Enable Material ID Rendering',
+    #!    'default': False,
+    #!},
     {
         'type': 'bool',
         'attr': 'metro',
@@ -464,7 +506,7 @@ properties = [
         'soft_min': 1,
         'max': 10000000,
         'soft_max': 10000000,
-    },
+    },    
     {
         'type': 'enum',
         'attr': 'network_mode',
@@ -789,9 +831,11 @@ class Indigo_Engine_Properties(bpy.types.PropertyGroup, export.xml_builder):
                 'vignetting': [str(scene.camera.data.indigo_camera.vignetting).lower()],
                 'post_process_diffraction': [str(scene.camera.data.indigo_camera.ad_post).lower()],
                 'render_foreground_alpha': 'foreground_alpha',
+                #!'depth_pass': 'depth_pass',
                 'max_contribution': 'max_contribution',
                 'clamp_contributions': 'clamp_contributions',
                 
+                #!'material_id_tracer': 'material_id',
                 'shadow_pass': 'shadow',
 
                 'gpu': 'gpu',

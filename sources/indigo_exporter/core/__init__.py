@@ -5,7 +5,7 @@ import os, subprocess, threading, time, sys, random
 import bpy, bl_ui            #@UnresolvedImport
 
 # EF Libs
-from extensions_framework import util as efutil
+from ..extensions_framework import util as efutil
 
 # Indigo Libs
 from .. import bl_info
