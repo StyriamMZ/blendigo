@@ -4,9 +4,9 @@ All Tests complete!
 
 Test                           Time         Result
 ********************************************************************************
-SunAndEnvMap                   40.47 sec    MSE = 3406.2034  ****** HIGH VALUE ******
+instanced_particle_export_hair_blur 8.47 sec     MSE = 0.1821  OK
 ********************************************************************************
 
 
-Failures: 1
-Blendigo Version: 4.3.0
+Failures: 0
+Blendigo Version: 4.3.1
